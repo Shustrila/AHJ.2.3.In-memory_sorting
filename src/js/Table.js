@@ -5,31 +5,24 @@ class Table {
     this.time = time;
     this.counter = 0;
 
-    this.init();
+    this._createRows();
   }
 
-  init() {
-    this.createRow(this.data);
-    this.sortByInterval();
+  sortBy() {
+    let i = 0;
+    this.data = this.data.sort((a, b) => {
+      if (i <= this.counter) {
+        i++;
+        return a.id - b.id;
+      }
+    });
+    this.el.innerHTML = '';
+    this._createRows();
+    this.counter++;
   }
 
-  sortByInterval() {
-    setInterval(() => {
-      let i = 0;
-      this.data = this.data.sort((a, b) => {
-        if (i <= this.counter) {
-          i++;
-          return a.id - b.id;
-        }
-      });
-      this.el.innerHTML = '';
-      this.createRow(this.data);
-      this.counter++;
-    }, this.time);
-  }
-
-  createRow(rows) {
-    for (const row of rows) {
+  _createRows() {
+    for (const row of this.data) {
       const tr = document.createElement('tr');
 
       tr.innerHTML = `<td>#${row.id}</td><td>${row.title}</td><td>(${row.year})</td><td>imdb: ${row.imdb}</td>`;
