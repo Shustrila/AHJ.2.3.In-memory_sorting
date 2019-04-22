@@ -15,11 +15,10 @@ class Table {
     this.data = this.data.sort((a, b) => {
       if (i <= this.counter) {
         i++;
-        arrowSort.innerHTML = '&#x2191';
-        return a.id - b.id;
-      } else {
         arrowSort.innerHTML = '&#x2193';
+        return a.id - b.id;
       }
+      arrowSort.innerHTML = '&#x2191';
     });
     this.el.innerHTML = '';
     this._createRows();
